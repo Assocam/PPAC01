@@ -1,4 +1,5 @@
 import datetime
+import math
 
 #PASSARE UN NUMERO INDEFINITO DI ARGOMENTI SOTTO FORMA DI LISTA
 # L'asterisco rende args una lista, args lo possiamo anche rinominare.
@@ -38,17 +39,19 @@ prova(eta=20, nome='filippo')
 lista=[2,3,4,5]
 lambda_start =datetime.datetime.now().microsecond
 for l in lista:
-  r=lambda x: (x**2) # x è un segnaposto e può essere rinominato.
+  r=lambda x: (math.cos(math.pi/x)) # x è un segnaposto e può essere rinominato.
   print(l, r(l))
 
 lambda_stop = datetime.datetime.now().microsecond
 print('la durata di lambda è', lambda_stop-lambda_start)
 
 ##
-lambda_start =datetime.datetime.now().microsecond
-for l in lista:
-  r=lambda x: (x**2) # x è un segnaposto e può essere rinominato.
-  print(l, r(l))
+fun_start =datetime.datetime.now().microsecond
+def funzione(a):
+  return math.cos(math.pi/a)
 
-lambda_stop = datetime.datetime.now().microsecond
-print('la durata di lambda è', lambda_stop-lambda_start)
+for l in lista:
+  print(l, funzione(l))
+
+fun_stop = datetime.datetime.now().microsecond
+print('la durata della funzione è', fun_stop-fun_start)
