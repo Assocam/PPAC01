@@ -1,6 +1,6 @@
 
 """ogni record del file ha questa forma
-'ingrediente1, ingrediente2, ingrediente3', 4
+"ingrediente1, ingrediente2, ingrediente3", 4
 """
 import pandas as pd
 from sklearn.pipeline import make_pipeline
@@ -8,7 +8,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import Ridge
 from sklearn.model_selection import train_test_split
 
-data=pd.read_csv('ricette.csv')
+data=pd.read_csv('/workspaces/PPAC01/_personale/ricette.csv')
 X=data['ingredienti']
 Y=data['gradimento']
 
