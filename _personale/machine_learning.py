@@ -12,8 +12,9 @@ data=pd.read_csv('/workspaces/PPAC01/_personale/ricette.csv')
 X=data['ingredienti']
 Y=data['gradimento']
 
-model=make_pipeline(TfidfVectorizer(), Ridge())  #ChatGPT: mi spieghi questa riga di codice?
-#TfidfVectorizer() fa la separazione vettoriale degli ingredienti, ogni ingrediente è elemento numerico della lista
+model=make_pipeline(TfidfVectorizer(), Ridge())  #make_pipeline concatena lo step1 TfidfVectorizer() e lo step2 Ridge()
+#TfidfVectorizer() fa la separazione vettoriale degli ingredienti, ogni ingrediente è elemento numerico della lista,
+#TF-IDF (term frequency, inverse document frequency) is a text representation technique in NLP. The idea is to give a high score to terms that are really relevant to a given document. 
 
 X_train, X_test, Y_train, Y_test = train_test_split(X,Y,test_size=0.2, random_state=27)
 model.fit(X_train, Y_train)  #riempie il modello
