@@ -1,16 +1,25 @@
 from flask import Flask, request
-import requests
+#import requests
+import json 
 backend= Flask('applicazioneBE') #l'applicazione chiamata applicazioneBE sta nella variabile backend
 
-
+@backend.route('/datijson', methods=['GET'])
 def gestisci01():
-    #nel body di postman bisogna mettere dei dati json (doppi apici), specificando raw e Json. {"codiceautore":"123"}
+    #nel body di postman bisogna mettere dei dati json (doppi apici), specificando raw e Json. {"user":"test", "password":"pwtest"}
 #1) RECUPERO I DATI
     datij=request.json
     dizrichiesta =json.loads(datij)
 #2) VERIFICO I DATI
     print('ho ricevuto: ',datij)
-#3)
+    for k,v in datij.items():
+        print(k,v)
+    try:
+        user=datij['utente']
+        pwd=datij['password']
+    except:
+        print('la richiesta non va bene')
+        return 'errore nei dati', 400
+#3)ELABORO
     pass
 
 #4) RISPONDO
