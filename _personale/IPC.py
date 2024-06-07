@@ -7,9 +7,9 @@ def gestisci01():
     #nel body di postman bisogna mettere dei dati json (doppi apici), specificando raw e Json. {"codiceautore":"123"}
 #1) RECUPERO I DATI
     datij=request.json
-
+    dizrichiesta =json.loads(datij)
 #2) VERIFICO I DATI
-    print(datij)
+    print('ho ricevuto: ',datij)
 #3)
     pass
 
@@ -17,8 +17,9 @@ def gestisci01():
     retdata={}
     retdata['risposta']='ok'
     rispostajson=json.dumps(retdata)
-    print(request.headers)
-    return rispostajson,200
+    print('header della richiesta ', request.headers)
+    print('ti ho risposto: ', rispostajson)
+    return rispostajson,200  #questa riga di return è obbligatoria per flask
 
 @backend.route('/ciao', methods=['GET','POST'])
 #in postman  scrivi http://127.0.0.1/ciao, con uno dei methods specificati in @backend.route() e otterrai l'output della funzione rottaCiao
