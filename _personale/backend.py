@@ -32,7 +32,8 @@ def gestisci01():
     rispostajson=json.dumps(retdata)
     print('header della richiesta ', request.headers)
     print('ti ho risposto: ', rispostajson)
-    return rispostajson, 200  #il return è obbligatorio per flask. Deve restituire qualcosa in formato json.
+    return rispostajson, 200  #il 200 significa "ok".
+    #il return è obbligatorio per flask. Deve restituire qualcosa in formato json.
 
 @backend.route('/ciao', methods=['GET','POST'])
 #in postman  scrivi http://127.0.0.1/ciao, con uno dei methods specificati in @backend.route() e otterrai l'output della funzione rottaCiao
@@ -68,5 +69,5 @@ if (__name__ =='__main__'): #se non è un file utilizzato come import da altrove
     backend.run(host='0.0.0.0', port=80) 
     #questo host significa che lo facciamo su tutti gli indirizzi. Mi mostrerà tutti gli indirizzi di rete che riesce a trovare.
     #l'host locale (il pc privato) è 127.0.0.1
-    #la porta 80 è quella standard del web, il defaul di flask è 5000 (non si sa perchè)
+    #la porta 80 è quella standard del web per l'http, il default di flask è 5000 (non si sa perchè)
 print(__name__)

@@ -1,0 +1,11 @@
+
+#Qui elenchiamo le caratteritiche delle API che sviluppiamo
+
+
+Endpoint      :/login
+Methods       : POST
+Input         : json - username, password
+Example       : {"username":"pippo", "password": "123"}       
+Output        : Json  - result
+Example       : {"result": "login OK"}, 200
+                {"result": "not found"}, 404
