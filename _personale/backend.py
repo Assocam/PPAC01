@@ -3,12 +3,15 @@ import json
 
 backend= Flask('applicazioneBE') #l'applicazione chiamata applicazioneBE sta nella variabile backend
 
-@backend.route('/datijson', methods=['GET'])
+@backend.route('/datijson', methods=['GET']) 
+#decoratore di rotta, che rende la seguente funzione una rotta di cui specifichiamo il nome e il "come".
 def gestisci01():
     #nel body di postman bisogna mettere dei dati json (doppi apici), specificando raw e Json. {"username":"test", "password":"pwtest"}
+
 #1) RECUPERO I DATI
     datij=request.json
     #dizrichiesta =json.loads(datij)
+
 #2) VERIFICO I DATI
     print('ho ricevuto: ',datij)
     for k,v in datij.items():
@@ -18,7 +21,8 @@ def gestisci01():
         pwd=datij['password']
     except:
         print('la richiesta non va bene')
-        return 'errore nei dati', 400
+        return {"messaggio":"errore nei dati"}, 403  #il 403 significa forbidden
+
 #3)ELABORO
     pass
 
@@ -28,7 +32,7 @@ def gestisci01():
     rispostajson=json.dumps(retdata)
     print('header della richiesta ', request.headers)
     print('ti ho risposto: ', rispostajson)
-    return rispostajson,200  #questa riga di return è obbligatoria per flask
+    return rispostajson, 200  #il return è obbligatorio per flask. Deve restituire qualcosa in formato json.
 
 @backend.route('/ciao', methods=['GET','POST'])
 #in postman  scrivi http://127.0.0.1/ciao, con uno dei methods specificati in @backend.route() e otterrai l'output della funzione rottaCiao
