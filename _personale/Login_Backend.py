@@ -1,5 +1,5 @@
 # IPC login backend.
-#in postman metti http://10.10.21.10/login, metodo POST, formato Json, Dati: {"ID":"1", "NOME":"pippo" , "COGNOME":"paperino", "username":"pippo", "password":"123"}
+#in postman metti http://10.10.21.10/login, metodo POST, formato Json, Dati: {"username":"pippo", "password":"123"}
 
 from flask import Flask, request
 #import sqlite3  #crea file in locale che non permettono la multiutenza. Se ricevesse tante richieste le eseguirebbe in coda.
