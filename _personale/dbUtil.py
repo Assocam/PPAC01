@@ -5,9 +5,9 @@ from flask import Flask, request
 import sqlite3  #crea file in locale che non permettono la multiutenza. Se ricevesse tante richieste le eseguirebbe in coda.
 
 
-def initDB():
+def initDB(DBpar):
 
-    connessione= sqlite3.Connection('databaseCorso.db') #se esiste si connette, altrimenti lo crea.
+    connessione= sqlite3.Connection(DBpar) #se esiste si connette, altrimenti lo crea.
     sql="""
     create table if not exists utenti
     (ID INTEGER PRIMARY KEY,
@@ -80,5 +80,5 @@ def doLogin(DB, user, passw):
     utenteRet['COGNOME']=cognome
     utenteRet['USERNAME']=utente
     utenteRet['PASSWORD']=password
-    
+
     return id, nome, cognome, utente, password
