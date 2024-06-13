@@ -79,5 +79,6 @@ def doLogin(DB, user, passw):
     utenteRet['NOME']=nome
     utenteRet['COGNOME']=cognome
     utenteRet['USERNAME']=utente
-      utenteRet['PASSWORD']=password
+    utenteRet['PASSWORD']=password
+    
     return id, nome, cognome, utente, password
