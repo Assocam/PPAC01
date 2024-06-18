@@ -4,7 +4,7 @@
 from flask import Flask, request
 #import sqlite3  #crea file in locale che non permettono la multiutenza. Se ricevesse tante richieste le eseguirebbe in coda.
 from dbUtil import initDB, doLogin
-
+import jinja2
 
 app=Flask('Login backend')
 DB='databaseCorso.db'

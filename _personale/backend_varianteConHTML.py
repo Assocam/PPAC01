@@ -1,8 +1,30 @@
-from flask import Flask, request
-import json 
+# questa variante serve per poter scrivere il frontend in html nello stesso script (quindi fe e be fanno 
+# parte dello stesso processo).
+# SVANTAGGI DI QUESTA VARIANTE: 
+# - non si può fare debug riga per riga perchè il front end non è in python ma in html.
+# - il codice HTML può essere visto dalla sorgente della pagina e hackerato con un metodo POST
 
+from flask import Flask, request, render_template
+import json 
+import jinja2  #per usare i template di flask
 
 backend= Flask('applicazioneBE') #l'applicazione chiamata applicazioneBE sta nella variabile backend
+
+def DoLogin(u,p):
+    return True
+
+@backend.route('/login', methods=['GET', 'POST'])
+def EseguiLogin():
+
+  esito='stringia vuota'
+  if request.method=='POST':
+      username=request.form.get('username')
+      password=request.form.get('password')
+      if DoLogin(username, password):
+          esito=f'hai fatto il login per {username}'
+
+  return render_template('login.html', esito=esito) #renderizza un template di html
+
 
 @backend.route('/datijson', methods=['GET']) 
 #decoratore di rotta, che rende la seguente funzione una rotta di cui specifichiamo il nome e il "come".
