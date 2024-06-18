@@ -8,7 +8,7 @@ sg.theme='darkGray'
 layout=[[sg.Text('username'), sg.Input(size=(20,1), key='USER')],
         [sg.Text('Password'), sg.Input(size=(20,1), key='PWD')],
         [sg.Button('Login', button_color='red'), sg.Button('Annulla')],
-        [sg.Text('codice di ritorno', font=('Arial', 20)), sg.text('', font=('Arial', 20), key='RISPOSTA')],
+        [sg.Text('codice di ritorno', font=('Arial', 20)), sg.Text('', font=('Arial', 20), key='RISPOSTA')],
         [sg.Text('', font=('Arial', 20),key='risp')] ]
 
 win=sg.Window('Login Corso Python', layout)  #una finestra con titolo 'Login Corso Python'
