@@ -1,28 +1,45 @@
-# questa variante serve per poter scrivere il frontend in html nello stesso script (quindi fe e be fanno 
-# parte dello stesso processo).
-# SVANTAGGI DI QUESTA VARIANTE: 
-# - non si può fare debug riga per riga perchè il front end non è in python ma in html.
-# - il codice HTML può essere visto dalla sorgente della pagina e hackerato con un metodo POST
+#questo script è da correggere (soprattutto nella funzione eseguilogin), guarda il file del prof!
 
-from flask import Flask, request, render_template  #per usare i template di flask (e jinja2 ?)
+#in post man metti il body {"username": "mic", "password": "123"}
+
+from flask import Flask, request
 import json 
+from cDatabase import dbBackend
+ 
+
+#creo il database
+db=dbBackend('backend.db', 'michela', 'cognome', 'mic', '123' ) #solleverà errore
+db.connettiti()
+righe=db.selectUtente('michela', '123')
+print(righe)
 
 backend= Flask('applicazioneBE') #l'applicazione chiamata applicazioneBE sta nella variabile backend
 
-def DoLogin(u,p):
-    return True
+def DoLogin(cdb: dbBackend, u,p):
+    #devo collegarmi ad un db per cercare username  e password.
+    #Se li trovo ritorno ture altrimento false.
+    cdb.connettiti()
+    ris=cdb.selectUtente(u,p)
+    if ris:
+        #trovato!
+        ret=True
+    else:
+        #non trovato
+        ret=False
+    return ret, ris
 
-@backend.route('/login', methods=['GET', 'POST'])
+@backend.route('/login', methods=['POST'])
 def EseguiLogin():
+    u=''
+    p=''
+    esito='stringa vuota'
+    if request.method=='POST':
+        username=request.form.get('username')
+        password=request.form.get('password')
+        if DoLogin(username, password):
+            esito=f'hai fatto il login per {username}'
 
-  esito='stringia vuota'
-  if request.method=='POST':
-      username=request.form.get('username')
-      password=request.form.get('password')
-      if DoLogin(username, password):
-          esito=f'hai fatto il login per {username}'
-
-  return render_template('login.html', esito=esito) #renderizza un template di html
+    return render_template('login.html', esito=esito) #renderizza un template di html
 
 
 @backend.route('/datijson', methods=['GET']) 
