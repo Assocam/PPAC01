@@ -5,6 +5,7 @@ class dbBackend:
     def __init__(self, nomeDB, nome, cognome, u, p):
         self.DBname=nomeDB
         conn=sqlite3.connect(nomeDB)
+        errore='nessuno'
         #costrutire la tabella utenti
         sql=""""
         CREATE TABLE IF NOT EXISTS UTENTI
@@ -43,6 +44,12 @@ class dbBackend:
         conn=sqlite3.connect(self.DBname)
         self.Connection = conn
     
+    def selectUtenti(self):
+        sql="SELECT * FROM UTENTI"
+        cur= self.Connection.cursor()
+        cur.execute(sql)
+        risultato=cur....
+
     def selectUtente(self, user, passw):
         sql="""
             SELECT * FROM UTENTI
@@ -50,9 +57,30 @@ class dbBackend:
             AND PASSWORD=?
             """
         cur=self.Connection.cursor()
-        cur.execute(sql, (user, passw))
+        
         risultato=cur.fetchone()
         cur.close()
      
+
+    def InsertUtente(self, nome, cognome, user, passw):
+        sql="""SELECT * FROM UTENTI
+        (NOME, COGNOME, USER, PASSWORD)
+        VALUES (?,?,?,?)"""
+        
+        cur=self.connection.cursor()
+       
+        riuscito=False
+        try:
+            cur.execute(sql, (nome, cognome, user, passw))
+            self.Connection.commit()
+        except Exception as e:
+            print(str(e))
+            errore= str(e)
+            self.Connection.rollback()
+        finally:
+                cur.close()
+                self.Connection.close()
+
+        return riuscito, errore
 
         

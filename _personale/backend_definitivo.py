@@ -1,4 +1,4 @@
-#questo script è da correggere (soprattutto nella funzione eseguilogin), guarda il file del prof!
+#questo script è da correggere (soprattutto dalla riga "esito='stringa vuota"), guarda il file del prof!
 
 #in post man metti il body {"username": "mic", "password": "123"}
 
@@ -15,9 +15,9 @@ print(righe)
 
 backend= Flask('applicazioneBE') #l'applicazione chiamata applicazioneBE sta nella variabile backend
 
-def DoLogin(cdb: dbBackend, u,p):
+def DoLogin(cdb: dbBackend, u,p): #specifichiamo la classe di cdb così, all'interno della funzione, l'intellisense suggerisce le sue funzioni.
     #devo collegarmi ad un db per cercare username  e password.
-    #Se li trovo ritorno ture altrimento false.
+    #Se li trovo ritorno true altrimenti false.
     cdb.connettiti()
     ris=cdb.selectUtente(u,p)
     if ris:
@@ -28,10 +28,61 @@ def DoLogin(cdb: dbBackend, u,p):
         ret=False
     return ret, ris
 
+@backend.route('/userlist', methods=['GET'])
+def UserList():
+    db.connettiti()
+    utenti=db.selectUtenti()
+    for u in utenti:
+        print(u)
+    return utenti
+
+@backend.route('/registrati', methods=['PUT'])
+def EseguiRegistrazione():
+    u=''
+    p=''
+    n=''
+    c=''
+    esito='ko'
+    ret_code = 500
+    try:
+        dati=request.json
+        u=dati['username']
+        p=dati['password']
+        n=dati['nome']
+        c=dati['cognome']
+        db.connettiti()
+        ret, errore =db.InsertUtente(n,c,u,p)
+        if errore=="":
+            print(f'inserimento OK di {n},{c}')
+            esito='ok'
+            ret_code=200
+        else:
+            print(f'inserimento fallito di {n},{c}\n per {ret}') 
+            esito='ko'
+            ret_code=403
+    except Exception as e:
+        print(str(e))  
+
+    dictRet= {'errore': errore, 'esito': esito}
+    return f'{"esito":"{esito}"}'
+
 @backend.route('/login', methods=['POST'])
 def EseguiLogin():
     u=''
     p=''
+    try:
+        dati=request.json
+        u=dati['username']
+        p=dati['password']
+        trovato, record=DoLogin(db,u,p)
+        if trovato:
+            print('login effettuato')
+            print(record)
+        else:
+            print('login fallito')
+    except Exception as e:
+        print(str(e))  
+
     esito='stringa vuota'
     if request.method=='POST':
         username=request.form.get('username')

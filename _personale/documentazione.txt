@@ -9,3 +9,14 @@ Example       : {"username":"pippo", "password": "123"}
 Output        : Json  - result
 Example       : {"result": "login OK"}, 200
                 {"result": "not found"}, 404
+
+
+Endpoint      :/registrati
+Methods       : PUT
+Input         : json - nome, cognome, username, password
+Example       : {"nome": "michela", "cognome": "cognome", "username":"pippo", "password": "123"}       
+Output        : Json  - errore, esito
+Example       : {"errore": "", "esito": "ok"}, 200
+                {"errore": "unique constraint failed: UTENTI.USER", "esito": "ko"}, 404
+
+
