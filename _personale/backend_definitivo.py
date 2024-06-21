@@ -1,6 +1,9 @@
-#questo script è da correggere (soprattutto dalla riga "esito='stringa vuota"), guarda il file del prof!
+#questo script è sbagliato, prendi il file del prof!
 
-#in post man metti il body {"username": "mic", "password": "123"}
+##################
+
+
+#in postman metti il body {"username": "mic", "password": "123"}
 
 from flask import Flask, request
 import json 
@@ -70,18 +73,36 @@ def EseguiRegistrazione():
 def EseguiLogin():
     u=''
     p=''
+    id=0
+    n=''
+    c=''
+    datilogin={}
     try:
         dati=request.json
         u=dati['username']
         p=dati['password']
-        trovato, record=DoLogin(db,u,p)
-        if trovato:
+
+
+        record=db.selectUtente(u,p)
+        #trovato, record=DoLogin(db,u,p)
+        if record:
             print('login effettuato')
+            esito='ok'
+            retCode=200
             print(record)
         else:
             print('login fallito')
+            esito='not found'
+            retCode=404
     except Exception as e:
         print(str(e))  
+
+    
+    datilogin['ID']=id
+    datilogin['nome']=n
+    datilogin['cognome']=c
+    datilogin['result']=esito
+   
 
     esito='stringa vuota'
     if request.method=='POST':
@@ -90,7 +111,7 @@ def EseguiLogin():
         if DoLogin(username, password):
             esito=f'hai fatto il login per {username}'
 
-    return render_template('login.html', esito=esito) #renderizza un template di html
+    return json.dumps(datilogin), retcode
 
 
 @backend.route('/datijson', methods=['GET']) 

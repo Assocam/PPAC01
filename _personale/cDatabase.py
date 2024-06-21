@@ -1,3 +1,9 @@
+##  
+# questo script è sbagliato, prendi il file del prof!
+
+
+##################################
+
 import sqlite3
 
 class dbBackend:
@@ -6,7 +12,7 @@ class dbBackend:
         self.DBname=nomeDB
         conn=sqlite3.connect(nomeDB)
         errore='nessuno'
-        #costrutire la tabella utenti
+        #costruire la tabella utenti
         sql=""""
         CREATE TABLE IF NOT EXISTS UTENTI
         (ID INTEGER PRIMARY KEY AUTOINCREMENT,

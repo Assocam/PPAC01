@@ -1,6 +1,10 @@
 
 #Qui elenchiamo le caratteritiche delle API che sviluppiamo
 
+CONVENZIONI
+- TABELLE e CAMPI in maiscolo
+- parametri in minuscolo
+- Classi in PascalConvention
 
 Endpoint      :/login
 Methods       : POST
