@@ -23,12 +23,11 @@ Output        : Json  - errore, esito
 Example       : {"errore": "", "esito": "ok"}, 200
                 {"errore": "unique constraint failed: UTENTI.USER", "esito": "ko"}, 404
 
-#DA COREGGERE!
 Endpoint      :/userList
 Methods       : GET
 Input         : none
 Example       : none   
 Output        : Json  - errore, esito
-Example       : [[2, "pippo", "pluto", "nonna", "papera"],  [2, "a", "a", "a", "a"]], 200
+Example       : {[[2, "pippo", "pluto", "nonna", "papera"],  [2, "a", "a", "a", "a"]]}, 200
                 
 
