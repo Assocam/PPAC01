@@ -30,6 +30,7 @@ if result.status_code == 200:
             'name': adv.select('h2[class*=ItemTitle-module_item-title__]'),  # Nome del prodotto
             'price': adv.select("p[class*=index-module_price__]"),  # Prezzo del prodotto
             'town': adv.select('span[class*=index-module_town__]'),  # Città del venditore
+            'province': adv.select('span.city')  # Provincia del venditore
         }
 
         # Elabora i dati estratti
@@ -40,7 +41,9 @@ if result.status_code == 200:
             else:
                 # Se l'elemento non è presente, imposta il valore a None
                 data[key] = None
-        
+#            print(type(data['price']))
+        if data['price'] is not None:
+            data['price'] = data['price'].replace('\xa0','').replace('Spedizione disponibile','')
         items.append(data)
 
     # Stampa i dati estratti
